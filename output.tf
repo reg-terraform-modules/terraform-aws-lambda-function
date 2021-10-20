@@ -12,3 +12,8 @@ output "function_name" {
   description = "Lambda function name"
   value       = aws_lambda_function.this.function_name
 }
+
+output "version" {
+  description = "Lambda version number"
+  value       = aws_lambda_function.this.version
+}
