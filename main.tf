@@ -59,4 +59,5 @@ resource "aws_lambda_function" "this" {
   }
   layers = var.layer_names
   tags = var.resource_tags
+  publish = var.publish
 }

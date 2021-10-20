@@ -62,9 +62,7 @@ variable "memory_size" {
 variable "lambda_environment_variables" {
   description = "Defaults to no env variables. If needed, env vars can be given in parent module variables.tf, and assigned in child module call"
   type        = map(string)
-  default = {
-    "env_var" = "none given"
-  }
+  default = null
 }
 
 variable "resource_tags" {
@@ -114,4 +112,10 @@ variable "second_additional_file_target" {
 variable "layer_names" {
   type        = list(string)
   default     = []
+}
+
+variable "publish" {
+  description = "Boolean for publishing lambda function version"
+  type = bool
+  default = false
 }
