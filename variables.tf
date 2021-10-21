@@ -62,7 +62,9 @@ variable "memory_size" {
 variable "lambda_environment_variables" {
   description = "Defaults to no env variables. If needed, env vars can be given in parent module variables.tf, and assigned in child module call"
   type        = map(string)
-  default = null
+  default = {
+    "env_var" = "none given"
+  }
 }
 
 variable "resource_tags" {
