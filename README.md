@@ -62,7 +62,15 @@ Establishes a lambda executable using standardized naming and input, including g
     - arn of layers to be connected to lambda function
     - must be given as a list using `[ ]`
     - default: `[]`
-
+- `lambda_url_resource`
+    - option to make lambda function as a URL resource. Makes it a dedicated HTTP(S) endpoint. Accepts `true` or `false`.
+    - default: `false`
+- `allow_methods_url`
+    - option for HTTP methods that are allowed when calling the function URL. For example: ["GET", "POST", "DELETE"]. Only used when "lambda_url_resource" = "true"
+    - default: `["POST"]`
+- `allow_origins_url`
+    - option for origins that can access the function URL. For example: ["https://www.example.com", "http://localhost:60905"]. Only used when "lambda_url_resource" = "true"
+    - default: `["*"]`
 
 ## Output variables
 - `arn`

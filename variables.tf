@@ -121,3 +121,21 @@ variable "publish" {
   type = bool
   default = false
 }
+
+variable "lambda_url_resource" {
+  description = "Boolean for making lambda a function URL endpoint"
+  type = bool
+  default = false
+}
+
+variable "allow_methods_url" {
+  description = "function allowed for URL endpoint"
+  type = list(string)
+  default = [ "POST" ]
+}
+
+variable "allow_origins_url" {
+  description = "origins allowed to use method for URL endpoint"
+  type = list(string)
+  default = [ "*" ]
+}

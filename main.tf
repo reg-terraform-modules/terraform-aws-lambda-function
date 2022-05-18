@@ -61,3 +61,15 @@ resource "aws_lambda_function" "this" {
   tags = var.resource_tags
   publish = var.publish
 }
+
+resource "aws_lambda_function_url" "test_live" {
+  count = var.lambda_url_resource ? 1 : 0
+  function_name      = aws_lambda_function.this.function_name
+  authorization_type = "NONE"
+
+  cors {
+    allow_credentials = true
+    allow_origins     = var.allow_origins_url
+    allow_methods     = var.allow_methods_url
+  }
+}
