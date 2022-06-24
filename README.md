@@ -87,19 +87,26 @@ The script generates a `.zip` package containing scripts located in `lambda_scri
 
 ```sql
 module "lambda_download_to_s3" {
-  source                        = "git::https://github.oslo.kommune.no/REN/aws-reg-terraform-library//lambda?ref=0.24.dev"
+  source                        = "app.terraform.io/renovasjonsetaten/lambda-function/aws"
+  version                       = "0.0.5"
+  env                           = var.env
   parent_module_path            = path.module
   iam_role_arn                  = module.iam_role_for_lambda.arn
   lambda_script_source_dir      = join("", [path.module, "/lambda_download_to_s3"])
   lambda_script_output_path     = join("", [path.module, "/zip_package/"])
-  lambda_handler                = "get_webdeb_standplasser.getStands"
+  lambda_handler                = "main.run"
   resource_tags                 = var.resource_tags
   additional_file_include       = true
   additional_file_path          = "./library/lambda/ssm_secret.py"
   additional_file_target        = "ssm_secret.py"
   module_name                   = "lambda_download_to_s3"
-  timeout                       = 300
-  lambda_environment_variables  = var.lambda_environment_variables
+  timeout                       = 30
+  lambda_url_resource           = var.lambda_url_resource
+  lambda_environment_variables  = merge(    
+                {"bucket" = var.bucket},
+                {"target_prefix" = var.target_prefix}
+                )
+  
   layer_names                   = var.layer_names
 }
 ```
