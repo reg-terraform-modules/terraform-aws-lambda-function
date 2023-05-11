@@ -46,7 +46,7 @@ data "archive_file" "second_that" {
 
 resource "aws_lambda_function" "this" {
   filename         = join("", [var.lambda_script_output_path, var.module_name, ".zip"])
-  function_name    = join("", [basename(var.parent_module_path), "-", var.module_name, "-",var.env])
+  function_name    = join("", [basename(var.parent_module_path), "-", var.module_name])
   role             = var.iam_role_arn
   handler          = var.lambda_handler
   source_code_hash = filebase64sha256(join("", [var.lambda_script_output_path, var.module_name, ".zip"]))
