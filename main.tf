@@ -7,14 +7,14 @@ resource "local_file" "additional_file" {
 data "archive_file" "this" {
   count = var.additional_file_include ? 0 : 1
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "add_file1.zip"])
+  output_path = join("", [var.lambda_script_output_path, "file1.zip"])
   source_dir  = var.lambda_script_source_dir
 }
 
 data "archive_file" "that" {
   count = var.additional_file_include ? 1 : 0
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "add_file2.zip"])
+  output_path = join("", [var.lambda_script_output_path, "file2.zip"])
   source_dir  = var.lambda_script_source_dir
   depends_on = [
     local_file.additional_file,
@@ -45,11 +45,11 @@ data "archive_file" "second_that" {
 }
 
 resource "aws_lambda_function" "this" {
-  filename         = join("", [var.lambda_script_output_path, "file.zip"])
+  filename         = join("", [var.lambda_script_output_path, "file1.zip"])
   function_name    = var.module_name
   role             = var.iam_role_arn
   handler          = var.lambda_handler
-  source_code_hash = filebase64sha256(join("", [var.lambda_script_output_path, "file.zip"]))
+  source_code_hash = filebase64sha256(join("", [var.lambda_script_output_path, "file1.zip"]))
   runtime          = var.lambda_runtime
   description      = var.description
   timeout          = var.timeout
