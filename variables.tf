@@ -29,13 +29,12 @@ variable "module_name" {
   type        = string
 }
 
-#Optional variables - default values used unless others specified:
 variable "lambda_runtime" {
-  description = "Runtime environment to be used when executing lambda"
+  description = "Runtime environment to be used when executing lambda. Non-optional because runtime should be explicitly defined."
   type        = string
-  default     = "python3.7"
 }
 
+#Optional variables - default values used unless others specified:
 variable "description" {
   description = "Description of what lambda function does"
   type        = string
