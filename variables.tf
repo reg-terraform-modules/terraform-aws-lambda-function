@@ -1,6 +1,11 @@
 # Required variables:
-variable "parent_module_path" {
-  description = "Path of the parent module - to be used for naming resources etc"
+variable "name" {
+  description = "Lambda function name"
+  type        = string
+}
+
+variable "lambda_runtime" {
+  description = "Runtime environment to be used when executing lambda"
   type        = string
 }
 
@@ -24,18 +29,8 @@ variable "lambda_handler" {
   type        = string
 }
 
-variable "module_name" {
-  description = "Name of child module - used to create resource name"
-  type        = string
-}
 
 #Optional variables - default values used unless others specified:
-variable "lambda_runtime" {
-  description = "Runtime environment to be used when executing lambda"
-  type        = string
-  default     = "python3.7"
-}
-
 variable "description" {
   description = "Description of what lambda function does"
   type        = string
@@ -51,7 +46,7 @@ variable "timeout" {
 variable "memory_size" {
   description = "Memory allocated to scripts - in increments of 64 MB from 128."
   type        = number
-  default     = 128
+  default     = 64
 }
 
 variable "lambda_environment_variables" {
@@ -72,65 +67,65 @@ variable "resource_tags" {
 
 variable "additional_file_include" {
   description = "option to include script file from other location"
-  type = string
-  default = false
+  type        = string
+  default     = false
 }
 
 variable "additional_file_path" {
   description = "path to additional file"
-  type = string
-  default = "./"
+  type        = string
+  default     = "./"
 }
 
 variable "additional_file_target" {
   description = "target location for additional file."
-  type = string
-  default = "./"
+  type        = string
+  default     = "./"
 }
 
 variable "second_additional_file_include" {
   description = "option to include script file from other location"
-  type = string
-  default = false
+  type        = string
+  default     = false
 }
 
 variable "second_additional_file_path" {
   description = "path to additional file"
-  type = string
-  default = "./"
+  type        = string
+  default     = "./"
 }
 
 variable "second_additional_file_target" {
   description = "target location for additional file."
-  type = string
-  default = "./"
+  type        = string
+  default     = "./"
 }
 
 variable "layer_names" {
-  type        = list(string)
-  default     = []
+  type    = list(string)
+  default = []
 }
 
 variable "publish" {
   description = "Boolean for publishing lambda function version"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "lambda_url_resource" {
   description = "Boolean for making lambda a function URL endpoint"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "allow_methods_url" {
   description = "function allowed for URL endpoint"
-  type = list(string)
-  default = [ "POST" ]
+  type        = list(string)
+  default     = ["POST"]
 }
 
 variable "allow_origins_url" {
   description = "origins allowed to use method for URL endpoint"
-  type = list(string)
-  default = [ "*" ]
+  type        = list(string)
+  default     = ["*"]
 }
