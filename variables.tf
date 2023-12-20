@@ -1,6 +1,6 @@
 # Required variables:
-variable "parent_module_path" {
-  description = "Path of the parent module - to be used for naming resources etc"
+variable "name" {
+  description = "Lambda function name"
   type        = string
 }
 
@@ -21,11 +21,6 @@ variable "lambda_script_output_path" {
 
 variable "lambda_handler" {
   description = "Handler used by lambda to execute script"
-  type        = string
-}
-
-variable "module_name" {
-  description = "Name of child module - used to create resource name"
   type        = string
 }
 
