@@ -1,6 +1,6 @@
 # Required variables:
-variable "name" {
-  description = "Lambda function name"
+variable "parent_module_path" {
+  description = "Path of the parent module - to be used for naming resources etc"
   type        = string
 }
 
@@ -24,12 +24,18 @@ variable "lambda_handler" {
   type        = string
 }
 
-variable "lambda_runtime" {
-  description = "Runtime environment to be used when executing lambda. Non-optional because runtime should be explicitly defined."
+variable "module_name" {
+  description = "Name of child module - used to create resource name"
   type        = string
 }
 
 #Optional variables - default values used unless others specified:
+variable "lambda_runtime" {
+  description = "Runtime environment to be used when executing lambda"
+  type        = string
+  default     = "python3.7"
+}
+
 variable "description" {
   description = "Description of what lambda function does"
   type        = string
