@@ -7,8 +7,8 @@ resource "local_file" "additional_file" {
 data "archive_file" "this" {
   count       = var.additional_file_include ? 0 : 1
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "file1.zip"])
-  source_dir  = var.lambda_script_source_dir
+  output_path = var.additional_file_include ? join("", [var.lambda_script_output_path, "file1.zip"]) : null
+  source_dir  = var.additional_file_include ? var.lambda_script_source_dir: null
 }
 
 data "archive_file" "that" {
@@ -30,8 +30,8 @@ resource "local_file" "second_additional_file" {
 data "archive_file" "second_this" {
   count       = var.second_additional_file_include ? 0 : 1
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "sec_file1.zip"])
-  source_dir  = var.lambda_script_source_dir
+  output_path = var.second_additional_file_include ? join("", [var.lambda_script_output_path, "sec_file1.zip"]) : null
+  source_dir  = var.second_additional_file_include ? var.lambda_script_source_dir : null
 }
 
 data "archive_file" "second_that" {
