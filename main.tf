@@ -14,12 +14,14 @@ data "archive_file" "this" {
 data "archive_file" "that" {
   count       = var.additional_file_include ? 1 : 0
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "file2.zip"])
-  source_dir  = var.lambda_script_source_dir
+  output_path = var.additional_file_include ? join("", [var.lambda_script_output_path, "file2.zip"]) : "/dev/null"
+  source_dir  = var.additional_file_include ? var.lambda_script_source_dir : "/tmp"
+
   depends_on = [
     local_file.additional_file,
   ]
 }
+
 
 resource "local_file" "second_additional_file" {
   count    = var.second_additional_file_include ? 1 : 0
