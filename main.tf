@@ -7,9 +7,10 @@ resource "local_file" "additional_file" {
 data "archive_file" "this" {
   count       = var.additional_file_include ? 0 : 1
   type        = "zip"
-  output_path = var.additional_file_include ? join("", [var.lambda_script_output_path, "file1.zip"]) : ""
-  source_dir  = var.additional_file_include ? var.lambda_script_source_dir: ""
+  output_path = var.additional_file_include ? join("", [var.lambda_script_output_path, "file1.zip"]) : "/dev/null"
+  source_dir  = var.additional_file_include ? var.lambda_script_source_dir : "/tmp"
 }
+
 
 data "archive_file" "that" {
   count       = var.additional_file_include ? 1 : 0
@@ -17,11 +18,8 @@ data "archive_file" "that" {
   output_path = var.additional_file_include ? join("", [var.lambda_script_output_path, "file2.zip"]) : "/dev/null"
   source_dir  = var.additional_file_include ? var.lambda_script_source_dir : "/tmp"
 
-  depends_on = [
-    local_file.additional_file,
-  ]
+  depends_on = [local_file.additional_file]
 }
-
 
 resource "local_file" "second_additional_file" {
   count    = var.second_additional_file_include ? 1 : 0
@@ -32,19 +30,19 @@ resource "local_file" "second_additional_file" {
 data "archive_file" "second_this" {
   count       = var.second_additional_file_include ? 0 : 1
   type        = "zip"
-  output_path = var.second_additional_file_include ? join("", [var.lambda_script_output_path, "sec_file1.zip"]) : ""
-  source_dir  = var.second_additional_file_include ? var.lambda_script_source_dir : ""
+  output_path = "/dev/null"  # Placeholder value when not in use
+  source_dir  = "/tmp"       # Placeholder value when not in use
 }
 
 data "archive_file" "second_that" {
   count       = var.second_additional_file_include ? 1 : 0
   type        = "zip"
-  output_path = join("", [var.lambda_script_output_path, "sec_file2.zip"])
-  source_dir  = var.lambda_script_source_dir
-  depends_on = [
-    local_file.second_additional_file,
-  ]
+  output_path = var.second_additional_file_include ? join("", [var.lambda_script_output_path, "sec_file2.zip"]) : "/dev/null"
+  source_dir  = var.second_additional_file_include ? var.lambda_script_source_dir : "/tmp"
+
+  depends_on = [local_file.second_additional_file]
 }
+
 
 
 resource "aws_lambda_function" "this" {
