@@ -19,24 +19,21 @@ variable "lambda_handler" {
   type        = string
 }
 
+variable "lambda_script_source_dir" {
+  description = "Directory of lambda package source"
+  type        = string
+}
+
+variable "lambda_script_output_path" {
+  description = "Path to zipped lambda package"
+  type        = string
+}
 
 #Optional variables - default values used unless others specified:
 variable "description" {
   description = "Description of what lambda function does"
   type        = string
   default     = "No description given"
-}
-
-variable "lambda_script_source_dir" {
-  description = "Directory of lambda package source"
-  type        = string
-  default = null
-}
-
-variable "lambda_script_output_path" {
-  description = "Path to zipped lambda package"
-  type        = string
-  default = null
 }
 
 variable "timeout" {
