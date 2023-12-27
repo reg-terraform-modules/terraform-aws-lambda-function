@@ -46,18 +46,20 @@ data "archive_file" "second_that" {
 
 
 resource "aws_lambda_function" "this" {
-  filename         = join("", [var.lambda_script_output_path, "file1.zip"])
+  filename         = var.lambda_script_output_path != null ? join("", [var.lambda_script_output_path, "file1.zip"]) : null
   function_name    = var.name
   role             = var.iam_role_arn
   handler          = var.lambda_handler
-  source_code_hash = filebase64sha256(join("", [var.lambda_script_output_path, "file1.zip"]))
+  source_code_hash = var.lambda_script_output_path != null ? filebase64sha256(join("", [var.lambda_script_output_path, "file1.zip"])) : null
   runtime          = var.lambda_runtime
   description      = var.description
   timeout          = var.timeout
   memory_size      = var.memory_size
+
   environment {
     variables = var.lambda_environment_variables
   }
+
   layers  = var.layer_names
   tags    = var.resource_tags
   publish = var.publish
