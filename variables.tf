@@ -48,7 +48,7 @@ variable "timeout" {
 variable "memory_size" {
   description = "Memory allocated to scripts - in increments of 64 MB from 128."
   type        = number
-  default     = 64
+  default     = 128
 }
 
 variable "lambda_environment_variables" {
