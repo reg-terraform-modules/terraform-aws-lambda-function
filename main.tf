@@ -46,7 +46,7 @@ data "archive_file" "second_that" {
 
 
 resource "aws_lambda_function" "this" {
-  filename         = var.lambda_script_output_path != null ? join("", [var.lambda_script_output_path, "file1.zip"]) : null
+  filename         = var.lambda_script_source_dir != null && var.lambda_script_output_path != null ? join("", [var.lambda_script_output_path, "file1.zip"]) : "lambda_source_code.zip"
   function_name    = var.name
   role             = var.iam_role_arn
   handler          = var.lambda_handler
