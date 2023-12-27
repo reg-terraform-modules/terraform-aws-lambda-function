@@ -17,11 +17,13 @@ variable "iam_role_arn" {
 variable "lambda_script_source_dir" {
   description = "Directory of lambda package source"
   type        = string
+  default = null
 }
 
 variable "lambda_script_output_path" {
   description = "Path to zipped lambda package"
   type        = string
+  default = null
 }
 
 variable "lambda_handler" {
